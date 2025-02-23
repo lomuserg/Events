@@ -1,0 +1,9 @@
+services:
+  master_postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: events
+    ports:
+      - "5433:5433"
