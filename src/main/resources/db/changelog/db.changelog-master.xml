@@ -7,4 +7,6 @@
 
     <!-- Включаем файл с миграцией -->
     <include file="changeset/event_V001__initial.sql" relativeToChangelogFile="true"/>
+    <include file="changeset/event_V002__userImplements.sql" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

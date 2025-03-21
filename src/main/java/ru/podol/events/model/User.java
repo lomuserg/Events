@@ -1,8 +1,9 @@
 package ru.podol.events.model;
 
 import jakarta.persistence.*;
-import jdk.jfr.Event;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
 public class User {
@@ -20,7 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", length = 64, nullable = false, unique = true)
+    @Column(name = "name", length = 64, nullable = false, unique = true)
     private String username;
 
     @Column(name = "email", length = 64, nullable = false, unique = true)
@@ -31,6 +33,18 @@ public class User {
 
     @Column(name = "password", length = 128, nullable = false)
     private String password;
+
+    @Column(name = "first_name", nullable = false)
+    @Size(max = 100)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    @Size(max = 100)
+    private String lastName;
+
+    @Column(nullable = false)
+    @Size(max = 100)
+    private String login;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -44,6 +58,4 @@ public class User {
 
     @Column(name = "banned")
     private boolean banned;
-
-
 }
