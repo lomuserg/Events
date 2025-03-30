@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import java.io.IOException;
 
 @RequiredArgsConstructor
@@ -32,8 +33,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7); // Убираем "Bearer "
             try {
-                SecurityContextHolder.getContext().setAuthentication(
-                        userAuthenticationProvider.validateToken(token));
+                // Попробуем выполнить валидацию токена
+                var authentication = userAuthenticationProvider.validateToken(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                System.out.println("Аутентификация установлена: " + authentication.getName());
             } catch (RuntimeException e) {
                 SecurityContextHolder.clearContext();
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
@@ -43,4 +46,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
 }
