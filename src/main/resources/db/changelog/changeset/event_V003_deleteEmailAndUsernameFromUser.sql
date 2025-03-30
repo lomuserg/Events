@@ -1,0 +1,11 @@
+ALTER TABLE "users"
+    DROP COLUMN username,
+    DROP COLUMN email;
+
+ALTER TABLE "users"
+    ALTER COLUMN phone DROP NOT NULL,
+    ALTER COLUMN created_at DROP NOT NULL,
+    ALTER COLUMN updated_at DROP NOT NULL,
+    ALTER COLUMN banned DROP NOT NULL;
+
+

@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 
 @RequiredArgsConstructor
@@ -17,27 +16,31 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final UserAuthenticationProvider userAuthenticationProvider;
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest httpServletRequest,
-            HttpServletResponse httpServletResponse,
-            FilterChain filterChain) throws ServletException, IOException {
-        String header = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-        if (header != null) {
-            String[] authElements = header.split(" ");
+        String path = request.getRequestURI();
 
-            if (authElements.length == 2
-                    && "Bearer".equals(authElements[0])) {
-                try {
-                    SecurityContextHolder.getContext().setAuthentication(
-                            userAuthenticationProvider.validateToken(authElements[1]));
-                } catch (RuntimeException e) {
-                    SecurityContextHolder.clearContext();
-                    throw e;
-                }
+        // Пропускаем запросы на публичные эндпоинты без проверки токена
+        if (path.equals("/register") || path.equals("/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring(7); // Убираем "Bearer "
+            try {
+                SecurityContextHolder.getContext().setAuthentication(
+                        userAuthenticationProvider.validateToken(token));
+            } catch (RuntimeException e) {
+                SecurityContextHolder.clearContext();
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
+                return;
             }
         }
 
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.doFilter(request, response);
     }
 }

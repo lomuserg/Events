@@ -23,14 +23,14 @@ public class SecurityConfig {
         http
                 .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
                 .and()
-                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
-                        .anyRequest().authenticated())
-        ;
+                        .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll() // Открытые маршруты
+                        .anyRequest().authenticated()) // Все остальные требуют авторизации
+                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class);
+
         return http.build();
     }
 }

@@ -16,23 +16,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name", length = 64, nullable = false, unique = true)
-    private String username;
-
-    @Column(name = "email", length = 64, nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "phone", length = 32, unique = true)
-    private String phone;
-
-    @Column(name = "password", length = 128, nullable = false)
-    private String password;
 
     @Column(name = "first_name", nullable = false)
     @Size(max = 100)
@@ -45,6 +34,12 @@ public class User {
     @Column(nullable = false)
     @Size(max = 100)
     private String login;
+
+    @Column(name = "password", length = 128, nullable = false)
+    private String password;
+
+    @Column(name = "phone", length = 32, unique = true)
+    private String phone;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
