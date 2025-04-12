@@ -15,7 +15,6 @@ public class UserController {
         if (userDto == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
         }
-
         return ResponseEntity.ok(userDto);
     }
 
@@ -24,13 +23,9 @@ public class UserController {
         if (userDto == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
         }
-
-        // Обновляем имя и фамилию
         userDto.setFirstName(updatedUserDto.getFirstName());
         userDto.setLastName(updatedUserDto.getLastName());
 
-        // Здесь можно сохранить обновленные данные в базу данных
-
-        return ResponseEntity.ok(userDto); // Возвращаем обновленный объект пользователя
+        return ResponseEntity.ok(userDto);
     }
 }

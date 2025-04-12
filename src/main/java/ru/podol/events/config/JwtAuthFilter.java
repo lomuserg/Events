@@ -22,7 +22,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // Пропускаем запросы на публичные эндпоинты без проверки токена
         if (path.equals("/register") || path.equals("/login")) {
             filterChain.doFilter(request, response);
             return;
@@ -31,9 +30,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7); // Убираем "Bearer "
+            String token = header.substring(7);
             try {
-                // Попробуем выполнить валидацию токена
+
+
                 var authentication = userAuthenticationProvider.validateToken(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 System.out.println("Аутентификация установлена: " + authentication.getName());
