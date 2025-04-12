@@ -1,4 +1,4 @@
-package ru.podol.events.config;
+package ru.podol.events.config.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package ru.podol.events.config;
+package ru.podol.events.config.auth;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
