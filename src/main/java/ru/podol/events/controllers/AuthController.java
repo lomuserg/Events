@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.podol.events.config.UserAuthenticationProvider;
+import ru.podol.events.config.auth.UserAuthenticationProvider;
 import ru.podol.events.dtos.CredentialsDto;
 import ru.podol.events.dtos.SignUpDto;
 import ru.podol.events.dtos.UserDto;

@@ -1,4 +1,4 @@
-package ru.podol.events.config;
+package ru.podol.events.config.auth;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
