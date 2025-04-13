@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import ru.podol.events.model.Organizer;
 
 import java.time.LocalDateTime;
 
@@ -23,7 +24,7 @@ public class Event {
     @Column(nullable = false, length = 200)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 4048)
     private String description;
 
     @Column(name = "event_datetime", nullable = false)
@@ -41,12 +42,12 @@ public class Event {
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "category")
     private EventCategory eventCategory;
 
-    // Организатор (отдельная сущность)
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "organizer_id", nullable = false)
-//    private Organizer organizer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organizer_id", nullable = false)
+    private Organizer organizer;
 
     // Участники мероприятия
 //    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
