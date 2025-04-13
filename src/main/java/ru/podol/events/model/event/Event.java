@@ -1,4 +1,4 @@
-package ru.podol.events.model;
+package ru.podol.events.model.event;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,6 +40,9 @@ public class Event {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Enumerated(EnumType.STRING)
+    private EventCategory eventCategory;
+
     // Организатор (отдельная сущность)
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "organizer_id", nullable = false)
@@ -49,10 +52,6 @@ public class Event {
 //    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Participant> participants = new ArrayList<>();
 
-    // Категория мероприятия
-//    @ManyToOne
-//    @JoinColumn(name = "category_id")
-//    private Category category;
 
 }
 
