@@ -6,9 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import ru.podol.events.model.Organizer;
+import ru.podol.events.model.organizer.Organizer;
+import ru.podol.events.model.participant.Participant;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -49,9 +52,8 @@ public class Event {
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
 
-    // Участники мероприятия
-//    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Participant> participants = new ArrayList<>();
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participant> participants = new ArrayList<>();
 
 
 }

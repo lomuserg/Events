@@ -1,4 +1,4 @@
-package ru.podol.events.model;
+package ru.podol.events.model.organizer;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import ru.podol.events.model.User;
 import ru.podol.events.model.event.Event;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +31,7 @@ public class Organizer {
     private String organizerLogin;
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Event> events = new ArrayList<>();
+    private List<Event> events;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
