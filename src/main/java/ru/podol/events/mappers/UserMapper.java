@@ -2,7 +2,7 @@ package ru.podol.events.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ru.podol.events.dtos.SignUpDto;
+import ru.podol.events.dtos.auth.SignUpDto;
 import ru.podol.events.dtos.UserDto;
 import ru.podol.events.model.User;
 
