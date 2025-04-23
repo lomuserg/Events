@@ -4,8 +4,5 @@ public enum EventCategory {
         MUSIC,
         TECH,
         ART,
-        EDUCATION,
-        SPORTS,
-        INTERVIEW,
-        COMPANY_PARTY
+        SPORT
 }

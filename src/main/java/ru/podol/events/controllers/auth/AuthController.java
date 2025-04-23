@@ -1,4 +1,4 @@
-package ru.podol.events.controllers;
+package ru.podol.events.controllers.auth;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

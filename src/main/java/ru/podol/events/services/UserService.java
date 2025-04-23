@@ -10,7 +10,7 @@ import ru.podol.events.dtos.UserDto;
 import ru.podol.events.exceptions.AppException;
 import ru.podol.events.mappers.UserMapper;
 import ru.podol.events.model.User;
-import ru.podol.events.repozitory.UserRepository;
+import ru.podol.events.repository.UserRepository;
 
 import java.nio.CharBuffer;
 import java.util.Optional;

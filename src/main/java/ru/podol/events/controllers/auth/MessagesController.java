@@ -1,4 +1,4 @@
-package ru.podol.events.controllers;
+package ru.podol.events.controllers.auth;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
