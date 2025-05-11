@@ -10,6 +10,9 @@ import ru.podol.events.repository.OrganizerRepository;
 import ru.podol.events.repository.jpa.EventJpaRepository;
 import ru.podol.events.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class EventService {
@@ -38,5 +41,27 @@ public class EventService {
         event.setOrganizer(organizer);
 
         return eventRepository.save(event);
+    }
+
+    public List<EventDto> getEventsByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Organizer organizer = organizerRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Organizer not found for this user"));
+
+        return eventRepository.findByOrganizer(organizer).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    private EventDto convertToDto(Event event) {
+        return EventDto.builder()
+                .title(event.getTitle())
+                .description(event.getDescription())
+                .eventDateTime(event.getEventDateTime())
+                .location(event.getLocation())
+                .eventCategory(event.getEventCategory())
+                .build();
     }
 }
