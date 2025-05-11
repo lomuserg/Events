@@ -22,7 +22,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        if (path.equals("/register") || path.equals("/login")) {
+        if ("/login".equals(path) || "/register".equals(path)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -31,14 +31,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
+            System.out.println("Полученный токен: " + token);
+
             try {
-
-
                 var authentication = userAuthenticationProvider.validateToken(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 System.out.println("Аутентификация установлена: " + authentication.getName());
-            } catch (RuntimeException e) {
+            } catch (Exception e) {
                 SecurityContextHolder.clearContext();
+                System.err.println("Ошибка валидации токена: " + e.getMessage());
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
                 return;
             }

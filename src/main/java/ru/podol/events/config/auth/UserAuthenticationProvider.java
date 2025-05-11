@@ -44,16 +44,17 @@ public class UserAuthenticationProvider {
     }
 
     public Authentication validateToken(String token) {
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secretKey);
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT decoded = verifier.verify(token);
 
-        JWTVerifier verifier = JWT.require(algorithm)
-                .build();
+            UserDto user = userService.findByLogin(decoded.getSubject());
 
-        DecodedJWT decoded = verifier.verify(token);
-
-        UserDto user = userService.findByLogin(decoded.getSubject());
-
-        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+            return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid or expired token", e);
+        }
     }
 
 }

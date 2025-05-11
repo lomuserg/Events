@@ -35,7 +35,7 @@ public class EventService {
         event.setEventDateTime(dto.getEventDateTime());
         event.setLocation(dto.getLocation());
         event.setEventCategory(dto.getEventCategory());
-       event.setOrganizer(organizer);
+        event.setOrganizer(organizer);
 
         return eventRepository.save(event);
     }

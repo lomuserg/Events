@@ -1,5 +1,6 @@
 package ru.podol.events.model.participant;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,9 +30,11 @@ public class Participant {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
+    @JsonBackReference("user-participant")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonBackReference("event-participant") // ← Указывает на обратную сторону
     @JoinColumn(name = "event_id")
     private Event event;
 

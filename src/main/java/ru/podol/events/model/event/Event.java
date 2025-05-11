@@ -1,5 +1,7 @@
 package ru.podol.events.model.event;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,12 +51,13 @@ public class Event {
     private EventCategory eventCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "organizer_id", nullable = false)
     private Organizer organizer;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Participant> participants = new ArrayList<>();
-
 
 }
 
