@@ -1,0 +1,43 @@
+package ru.podol.events.model.event;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import ru.podol.events.model.User;
+import ru.podol.events.model.UserEventRole;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "event_users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class EventUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference("event-participants")
+    @JoinColumn(name = "event_id", nullable = false)
+    private Event event;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserEventRole role;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+}

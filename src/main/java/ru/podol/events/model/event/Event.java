@@ -1,6 +1,5 @@
 package ru.podol.events.model.event;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,8 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import ru.podol.events.model.organizer.Organizer;
-import ru.podol.events.model.participant.Participant;
+import ru.podol.events.model.event.EventUser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,14 +48,7 @@ public class Event {
     @Column(name = "category")
     private EventCategory eventCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "organizer_id", nullable = false)
-    private Organizer organizer;
-
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Participant> participants = new ArrayList<>();
-
+    private List<EventUser> participants = new ArrayList<>();
 }
-

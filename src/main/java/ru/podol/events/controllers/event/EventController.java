@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/main/events")
 @RequiredArgsConstructor
 public class EventController {
+
     private final EventService eventService;
 
     @PostMapping
@@ -40,4 +41,25 @@ public class EventController {
         List<EventDto> events = eventService.getEventsByUserId(userDto.getId());
         return ResponseEntity.ok(events);
     }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<EventDto> getEventById(@PathVariable Long id,
+//                                                 @AuthenticationPrincipal UserDto userDto) {
+//        if (userDto == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+//        }
+//
+//        return ResponseEntity.ok(eventService.getEventById(id, userDto.getId()));
+//    }
+//
+//    @GetMapping("/{id}/is-organizer")
+//    public ResponseEntity<Boolean> isUserOrganizer(@PathVariable Long id,
+//                                                   @AuthenticationPrincipal UserDto userDto) {
+//        if (userDto == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+//        }
+//
+//        boolean isOrganizer = eventService.isUserOrganizer(id, userDto.getId());
+//        return ResponseEntity.ok(isOrganizer);
+//    }
 }

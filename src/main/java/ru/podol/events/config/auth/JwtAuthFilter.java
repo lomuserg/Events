@@ -31,15 +31,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
-            System.out.println("Полученный токен: " + token);
+            //System.out.println("Полученный токен: " + token);
 
             try {
                 var authentication = userAuthenticationProvider.validateToken(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                System.out.println("Аутентификация установлена: " + authentication.getName());
+                //System.out.println("Аутентификация установлена: " + authentication.getName());
             } catch (Exception e) {
                 SecurityContextHolder.clearContext();
-                System.err.println("Ошибка валидации токена: " + e.getMessage());
+                //System.err.println("Ошибка валидации токена: " + e.getMessage());
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
                 return;
             }

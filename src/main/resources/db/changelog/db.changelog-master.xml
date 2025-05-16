@@ -6,8 +6,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
     <include file="changeset/event_V001__initial.sql" relativeToChangelogFile="true"/>
-    <include file="changeset/event_V002__userImplements.sql" relativeToChangelogFile="true"/>
-    <include file="changeset/event_V003_deleteEmailAndUsernameFromUser.sql" relativeToChangelogFile="true"/>
-    <include file="changeset/event_V004_createEventOrginizerPerticipantTables.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
