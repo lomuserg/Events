@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class EventRepository {
     private final EventJpaRepository eventJpaRepository;
 
-
     public Event save(Event event) {
         return eventJpaRepository.save(event);
     }
@@ -29,17 +28,8 @@ public class EventRepository {
                 .orElseThrow(() -> new RuntimeException("Event not found"));
     }
 
-    public List<Event> findByUser(User user) {
-        return eventJpaRepository.findAll().stream()
-                .filter(e -> e.getParticipants().stream()
-                        .anyMatch(p -> p.getUser().getId().equals(user.getId())))
-                .collect(Collectors.toList());
+    public List<Event> findByUserId(Long userId) {
+        return eventJpaRepository.findByUserId(userId);
     }
 
-    public boolean isUserOrganizer(Event event, User user) {
-        return event.getParticipants().stream()
-                .anyMatch(p -> p.getUser().getId().equals(user.getId()) &&
-                        p.getRole() == UserEventRole.ORGANIZER);
-    }
-    
 }

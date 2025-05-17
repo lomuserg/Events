@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.podol.events.model.event.Event;
 
-
 import java.util.List;
 
 @Repository
 public interface EventJpaRepository extends JpaRepository<Event, Long> {
 
+    @Query("SELECT e FROM Event e JOIN e.participants eu WHERE eu.user.id = :userId")
+    List<Event> findByUserId(Long userId);
 }

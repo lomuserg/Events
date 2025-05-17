@@ -28,38 +28,30 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
 
-        Event event = eventService.createEvent(userDto.getId(), eventDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(event);
+        EventDto createdEvent = eventService.createEvent(userDto.getId(), eventDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEvent);
     }
 
     @GetMapping
-    public ResponseEntity<List<EventDto>> getUserEvents(@AuthenticationPrincipal UserDto userDto) {
+    public ResponseEntity<List<EventDto>> getEventsByUser(@AuthenticationPrincipal UserDto userDto) {
         if (userDto == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
         }
-
         List<EventDto> events = eventService.getEventsByUserId(userDto.getId());
+        System.out.println(events.toString());
+
         return ResponseEntity.ok(events);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<EventDto> getEventById(@PathVariable Long id,
-//                                                 @AuthenticationPrincipal UserDto userDto) {
-//        if (userDto == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-//        }
-//
-//        return ResponseEntity.ok(eventService.getEventById(id, userDto.getId()));
-//    }
-//
-//    @GetMapping("/{id}/is-organizer")
-//    public ResponseEntity<Boolean> isUserOrganizer(@PathVariable Long id,
-//                                                   @AuthenticationPrincipal UserDto userDto) {
-//        if (userDto == null) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
-//        }
-//
-//        boolean isOrganizer = eventService.isUserOrganizer(id, userDto.getId());
-//        return ResponseEntity.ok(isOrganizer);
-//    }
+    @GetMapping()
+    public ResponseEntity<List<EventDto>> getEventById(@AuthenticationPrincipal UserDto userDto) {
+        if (userDto == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
+        }
+        List<EventDto> events = eventService.getEventsByUserId(userDto.getId());
+        System.out.println(events.toString());
+
+        return ResponseEntity.ok(events);
+    }
+
 }
