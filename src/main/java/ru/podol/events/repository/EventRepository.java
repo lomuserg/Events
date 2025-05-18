@@ -2,14 +2,10 @@ package ru.podol.events.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.podol.events.model.User;
-import ru.podol.events.model.UserEventRole;
 import ru.podol.events.model.event.Event;
-import ru.podol.events.model.event.EventUser;
 import ru.podol.events.repository.jpa.EventJpaRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,8 +16,12 @@ public class EventRepository {
         return eventJpaRepository.save(event);
     }
 
-    public List<Event> findAll() {
-        return eventJpaRepository.findAll();
+    public Event update(Event event) {
+        return eventJpaRepository.save(event);
+    }
+
+    public void delete(Event event) {
+        eventJpaRepository.delete(event);
     }
 
     public Event findById(Long id) {
@@ -36,7 +36,5 @@ public class EventRepository {
     public List<Object[]> findEventsWithRolesByUserId(Long userId) {
         return eventJpaRepository.findEventsWithRolesByUserId(userId);
     }
-
-
 
 }

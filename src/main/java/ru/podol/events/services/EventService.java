@@ -1,5 +1,6 @@
 package ru.podol.events.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,24 @@ public class EventService {
         return eventMapper.toEventDto(eventRepository.save(savedEvent));
     }
 
+    @Transactional
+    public EventDto updateEvent(EventDto eventDto, long eventId) {
+        Event existingEvent = eventRepository.findById(eventId);
+        log.info("Updating event: {} (id={})", existingEvent.getTitle(), eventId);
+        eventMapper.updateEventFromDto(eventDto, existingEvent);
+
+        Event updatedEvent = eventRepository.update(existingEvent);
+        log.info("Event {} updated successfully", updatedEvent.getId());
+        return eventMapper.toEventDto(updatedEvent);
+    }
+
+    @Transactional
+    public void deleteEvent(Long eventId) {
+        Event event = eventRepository.findById(eventId);
+        log.info("Delete event: {} (id={})", event.getTitle(), eventId);
+        eventRepository.delete(event);
+    }
+
     public List<EventDto> getEventsByUserId(Long userId) {
         List<Event> events = eventRepository.findByUserId(userId);
         return eventMapper.toEventDtos(events);
@@ -63,7 +82,5 @@ public class EventService {
                 })
                 .collect(Collectors.toList());
     }
-
-    //public EventDto addParticipantToEvent(Long eventId, Long userId) {}
 
 }

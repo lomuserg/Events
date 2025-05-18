@@ -2,6 +2,7 @@ package ru.podol.events.mappers.event;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import ru.podol.events.dtos.event.EventDto;
 import ru.podol.events.model.event.Event;
@@ -22,4 +23,8 @@ public interface EventMapper {
     List<EventDto> toEventDtos(List<Event> events);
 
     List<Event> toEvents(List<EventDto> eventDtos);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "participants", ignore = true)
+    void updateEventFromDto(EventDto dto, @MappingTarget Event event);
 }
