@@ -1,5 +1,6 @@
 package ru.podol.events.model.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class Event {
     @Column(length = 4048)
     private String description;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "event_datetime", nullable = false)
     private LocalDateTime eventDateTime;
 

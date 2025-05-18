@@ -37,4 +37,6 @@ public class EventRepository {
         return eventJpaRepository.findEventsWithRolesByUserId(userId);
     }
 
+
+
 }

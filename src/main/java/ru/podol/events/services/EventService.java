@@ -44,6 +44,11 @@ public class EventService {
         return eventMapper.toEventDtos(events);
     }
 
+    public EventDto getEventById(Long userId) {
+        Event event = eventRepository.findById(userId);
+        return eventMapper.toEventDto(event);
+    }
+
     public List<EventDto> getEventsByUserIdWithRoles(Long userId) {
         List<Object[]> results = eventRepository.findEventsWithRolesByUserId(userId);
 

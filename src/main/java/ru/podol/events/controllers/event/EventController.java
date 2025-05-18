@@ -23,7 +23,7 @@ public class EventController {
     @PostMapping
     public ResponseEntity<?> createEvent(@AuthenticationPrincipal UserDto userDto,
                                          @RequestBody @Valid EventDto eventDto) {
-        if (userDto == null) {
+        if (isUserDtoIsNull(userDto)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
 
@@ -33,25 +33,24 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<List<EventDto>> getEventsByUser(@AuthenticationPrincipal UserDto userDto) {
-        if (userDto == null) {
+        if (isUserDtoIsNull(userDto)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
         }
         List<EventDto> events = eventService.getEventsByUserIdWithRoles(userDto.getId());
-        System.out.println(events.toString());
 
         return ResponseEntity.ok(events);
     }
 
     @GetMapping("/{eventId}")
-    public ResponseEntity<List<EventDto>> getEventById(@AuthenticationPrincipal UserDto userDto,
+    public ResponseEntity<?> getEventById(@AuthenticationPrincipal UserDto userDto,
                                                        @PathVariable long eventId) {
-        if (userDto == null) {
+        if (isUserDtoIsNull(userDto)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
         }
-        List<EventDto> events = eventService.getEventsByUserId(userDto.getId());
-        System.out.println(events.toString());
+        EventDto event = eventService.getEventById(eventId);
+        System.out.println(event.toString());
 
-        return ResponseEntity.ok(events);
+        return ResponseEntity.ok(event);
     }
 
     @PutMapping("/{eventId}")
@@ -67,4 +66,7 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
+    private boolean isUserDtoIsNull(UserDto userDto) {
+        return userDto == null;
+    }
 }

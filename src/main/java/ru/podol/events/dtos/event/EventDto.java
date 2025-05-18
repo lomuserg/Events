@@ -17,12 +17,12 @@ public class EventDto {
     private Long id;
     private String title;
     private String description;
-
-    private LocalDateTime eventDateTime;
-
     private String location;
     private EventCategory eventCategory;
     private UserEventRole userEventRole;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime eventDateTime;
 
     @ToString.Exclude
     private List<String> participantsLogins = new ArrayList<>();
