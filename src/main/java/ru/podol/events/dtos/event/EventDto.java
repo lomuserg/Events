@@ -2,6 +2,7 @@ package ru.podol.events.dtos.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import ru.podol.events.model.UserEventRole;
 import ru.podol.events.model.event.EventCategory;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class EventDto {
 
     private String location;
     private EventCategory eventCategory;
+    private UserEventRole userEventRole;
 
     @ToString.Exclude
     private List<String> participantsLogins = new ArrayList<>();

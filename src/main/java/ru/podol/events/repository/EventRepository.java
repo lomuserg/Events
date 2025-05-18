@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.podol.events.model.User;
 import ru.podol.events.model.UserEventRole;
 import ru.podol.events.model.event.Event;
+import ru.podol.events.model.event.EventUser;
 import ru.podol.events.repository.jpa.EventJpaRepository;
 
 import java.util.List;
@@ -30,6 +31,10 @@ public class EventRepository {
 
     public List<Event> findByUserId(Long userId) {
         return eventJpaRepository.findByUserId(userId);
+    }
+
+    public List<Object[]> findEventsWithRolesByUserId(Long userId) {
+        return eventJpaRepository.findEventsWithRolesByUserId(userId);
     }
 
 }

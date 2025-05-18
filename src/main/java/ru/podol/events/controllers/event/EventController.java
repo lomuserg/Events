@@ -8,7 +8,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.podol.events.dtos.UserDto;
 import ru.podol.events.dtos.event.EventDto;
-import ru.podol.events.model.event.Event;
 import ru.podol.events.services.EventService;
 
 import java.util.Collections;
@@ -37,14 +36,28 @@ public class EventController {
         if (userDto == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
         }
+        List<EventDto> events = eventService.getEventsByUserIdWithRoles(userDto.getId());
+        System.out.println(events.toString());
+
+        return ResponseEntity.ok(events);
+    }
+
+    @GetMapping("/{eventId}")
+    public ResponseEntity<List<EventDto>> getEventById(@AuthenticationPrincipal UserDto userDto,
+                                                       @PathVariable long eventId) {
+        if (userDto == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
+        }
         List<EventDto> events = eventService.getEventsByUserId(userDto.getId());
         System.out.println(events.toString());
 
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<EventDto>> getEventById(@AuthenticationPrincipal UserDto userDto) {
+    @PutMapping("/{eventId}")
+    public ResponseEntity<List<EventDto>> addParticipantToEventById(@AuthenticationPrincipal UserDto userDto,
+                                                       @RequestBody @Valid EventDto eventDto,
+                                                       @PathVariable long eventId) {
         if (userDto == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
         }

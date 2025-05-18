@@ -12,6 +12,7 @@ import ru.podol.events.model.UserEventRole;
 import ru.podol.events.repository.EventRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -41,6 +42,21 @@ public class EventService {
     public List<EventDto> getEventsByUserId(Long userId) {
         List<Event> events = eventRepository.findByUserId(userId);
         return eventMapper.toEventDtos(events);
+    }
+
+    public List<EventDto> getEventsByUserIdWithRoles(Long userId) {
+        List<Object[]> results = eventRepository.findEventsWithRolesByUserId(userId);
+
+        return results.stream()
+                .map(result -> {
+                    Event event = (Event) result[0];
+                    UserEventRole role = (UserEventRole) result[1];
+
+                    EventDto dto = eventMapper.toEventDto(event);
+                    dto.setUserEventRole(role);
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     //public EventDto addParticipantToEvent(Long eventId, Long userId) {}
