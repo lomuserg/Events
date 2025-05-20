@@ -23,8 +23,7 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UserDto login(CredentialsDto credentialsDto) {
-        User user = userRepository.findByLogin(credentialsDto.getLogin())
-                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        User user = userRepository.getByLogin(credentialsDto.getLogin());
 
         if (passwordEncoder.matches(CharBuffer.wrap(credentialsDto.getPassword()), user.getPassword())) {
             return userMapper.toUserDto(user);
@@ -46,8 +45,7 @@ public class UserService {
     }
 
     public UserDto findByLogin(String login) {
-        User user = userRepository.findByLogin(login)
-                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        User user = userRepository.getByLogin(login);
         return userMapper.toUserDto(user);
     }
 

@@ -8,7 +8,7 @@ import ru.podol.events.dtos.event.EventDto;
 import ru.podol.events.mappers.event.EventMapper;
 import ru.podol.events.model.event.Event;
 import ru.podol.events.model.User;
-import ru.podol.events.model.event.EventUser;
+import ru.podol.events.model.event.Participant;
 import ru.podol.events.model.UserEventRole;
 import ru.podol.events.repository.EventRepository;
 
@@ -30,11 +30,11 @@ public class EventService {
         Event event = eventMapper.toEvent(eventDto);
         Event savedEvent = eventRepository.save(event);
 
-        EventUser eventUser = new EventUser();
-        eventUser.setUser(user);
-        eventUser.setEvent(savedEvent);
-        eventUser.setRole(UserEventRole.ORGANIZER);
-        savedEvent.getParticipants().add(eventUser);
+        Participant participant = new Participant();
+        participant.setUser(user);
+        participant.setEvent(savedEvent);
+        participant.setRole(UserEventRole.ORGANIZER);
+        savedEvent.getParticipants().add(participant);
 
         log.info("Creating new event {}", savedEvent.getTitle().toString());
         return eventMapper.toEventDto(eventRepository.save(savedEvent));
@@ -58,11 +58,6 @@ public class EventService {
         eventRepository.delete(event);
     }
 
-    public List<EventDto> getEventsByUserId(Long userId) {
-        List<Event> events = eventRepository.findByUserId(userId);
-        return eventMapper.toEventDtos(events);
-    }
-
     public EventDto getEventById(Long userId) {
         Event event = eventRepository.findById(userId);
         return eventMapper.toEventDto(event);
@@ -81,6 +76,11 @@ public class EventService {
                     return dto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public List<EventDto> getEventsByUserId(Long userId) {
+        List<Event> events = eventRepository.findByUserId(userId);
+        return eventMapper.toEventDtos(events);
     }
 
 }

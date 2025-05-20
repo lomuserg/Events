@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import ru.podol.events.model.event.EventUser;
+import ru.podol.events.model.event.Participant;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -60,6 +59,6 @@ public class User {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EventUser> events = new ArrayList<>();
+    private List<Participant> events = new ArrayList<>();
 
 }

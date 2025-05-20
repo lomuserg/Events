@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "event")
-public class EventUser {
+public class Participant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

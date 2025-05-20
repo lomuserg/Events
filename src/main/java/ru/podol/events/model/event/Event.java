@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import ru.podol.events.model.event.EventUser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -52,5 +51,5 @@ public class Event {
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<EventUser> participants = new ArrayList<>();
+    private List<Participant> participants = new ArrayList<>();
 }
