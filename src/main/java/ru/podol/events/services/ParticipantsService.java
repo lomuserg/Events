@@ -2,6 +2,8 @@ package ru.podol.events.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.podol.events.dtos.UserDto;
@@ -17,8 +19,11 @@ import ru.podol.events.repository.ParticipantRepository;
 @RequiredArgsConstructor
 @Slf4j
 public class ParticipantsService {
+    @Lazy
+    @Autowired
+    private EventService eventService;
+
     private final UserService userService;
-    private final EventService eventService;
     private final ParticipantMapper participantMapper;
     private final ParticipantRepository participantRepository;
 
@@ -43,5 +48,9 @@ public class ParticipantsService {
 
         participantRepository.delete(participant);
         log.info("Participant {} deleted from event {}", login, eventId);
+    }
+
+    public Participant findParticipantByUserIdAndEventId(Long userId, Long eventId) {
+        return participantRepository.findByEventIdAndUserId(eventId, userId);
     }
 }

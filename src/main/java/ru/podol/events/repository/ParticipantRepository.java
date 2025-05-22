@@ -27,4 +27,9 @@ public class ParticipantRepository {
                 .orElseThrow(() -> new RuntimeException("Participant not found"));
     }
 
+    public Participant findByEventIdAndUserId(Long eventId, Long userId) {
+        return participantJpaRepository.findByEventIdAndUserId(eventId, userId)
+                .orElseThrow(() -> new RuntimeException("Participant not found"));
+    }
+
 }
