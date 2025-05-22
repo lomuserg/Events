@@ -1,4 +1,4 @@
-package ru.podol.events.controllers;
+package ru.podol.events.controllers.auth;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.podol.events.config.auth.UserAuthenticationProvider;
-import ru.podol.events.dtos.CredentialsDto;
-import ru.podol.events.dtos.SignUpDto;
+import ru.podol.events.dtos.auth.CredentialsDto;
+import ru.podol.events.dtos.auth.SignUpDto;
 import ru.podol.events.dtos.UserDto;
 import ru.podol.events.services.UserService;
 

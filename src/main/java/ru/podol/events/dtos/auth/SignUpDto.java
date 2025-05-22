@@ -1,4 +1,4 @@
-package ru.podol.events.dtos;
+package ru.podol.events.dtos.auth;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

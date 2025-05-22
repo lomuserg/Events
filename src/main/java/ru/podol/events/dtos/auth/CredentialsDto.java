@@ -1,4 +1,4 @@
-package ru.podol.events.dtos;
+package ru.podol.events.dtos.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
