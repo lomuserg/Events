@@ -3,7 +3,7 @@ package ru.podol.events.mappers.event;
 import org.mapstruct.*;
 import ru.podol.events.dtos.event.EventDto;
 import ru.podol.events.model.event.Event;
-import ru.podol.events.model.event.Participant;
+import ru.podol.events.model.participant.Participant;
 
 import java.util.List;
 

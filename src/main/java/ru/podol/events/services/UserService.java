@@ -44,9 +44,8 @@ public class UserService {
         return userMapper.toUserDto(savedUser);
     }
 
-    public UserDto findByLogin(String login) {
-        User user = userRepository.getByLogin(login);
-        return userMapper.toUserDto(user);
+    public User findByLogin(String login) {
+        return userRepository.getByLogin(login);
     }
 
     public User getUserById(Long id) {

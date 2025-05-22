@@ -1,4 +1,4 @@
-package ru.podol.events.model.event;
+package ru.podol.events.model.participant;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,6 +10,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import ru.podol.events.model.User;
 import ru.podol.events.model.UserEventRole;
+import ru.podol.events.model.event.Event;
 
 import java.time.LocalDateTime;
 

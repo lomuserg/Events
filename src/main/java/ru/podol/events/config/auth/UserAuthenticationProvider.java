@@ -7,10 +7,14 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import ru.podol.events.dtos.UserDto;
+import ru.podol.events.mappers.UserMapper;
+import ru.podol.events.model.User;
+import ru.podol.events.repository.UserRepository;
 import ru.podol.events.services.UserService;
 
 import java.util.Base64;
@@ -25,6 +29,7 @@ public class UserAuthenticationProvider {
     private String secretKey;
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostConstruct
     protected void init() {
@@ -49,9 +54,10 @@ public class UserAuthenticationProvider {
             JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT decoded = verifier.verify(token);
 
-            UserDto user = userService.findByLogin(decoded.getSubject());
+            User user = userService.findByLogin(decoded.getSubject());
+            UserDto userDto = userMapper.toUserDto(user);
 
-            return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+            return new UsernamePasswordAuthenticationToken(userDto, null, Collections.emptyList());
         } catch (Exception e) {
             throw new RuntimeException("Invalid or expired token", e);
         }

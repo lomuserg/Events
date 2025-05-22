@@ -8,7 +8,7 @@ import ru.podol.events.dtos.event.EventDto;
 import ru.podol.events.mappers.event.EventMapper;
 import ru.podol.events.model.event.Event;
 import ru.podol.events.model.User;
-import ru.podol.events.model.event.Participant;
+import ru.podol.events.model.participant.Participant;
 import ru.podol.events.model.UserEventRole;
 import ru.podol.events.repository.EventRepository;
 
@@ -22,6 +22,10 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
     private final UserService userService;
+
+    public Event findById(Long id) {
+        return eventRepository.findById(id);
+    }
 
     public EventDto createEvent(Long userId, EventDto eventDto) {
         User user = userService.getUserById(userId);
