@@ -3,6 +3,7 @@ package ru.podol.events.services;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import ru.podol.events.dtos.event.EventDto;
 import ru.podol.events.dtos.participant.ParticipantDto;
@@ -23,6 +24,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
     private final UserService userService;
+    @Lazy
     private final ParticipantsService participantsService;
 
     public Event findById(Long id) {
