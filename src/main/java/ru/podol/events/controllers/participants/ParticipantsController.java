@@ -8,15 +8,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.podol.events.dtos.UserDto;
-import ru.podol.events.dtos.event.EventDto;
 import ru.podol.events.dtos.participant.ParticipantDto;
-import ru.podol.events.services.ParticipantsService;
+import ru.podol.events.services.ParticipantService;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/main/participants")
 public class ParticipantsController {
-    private final ParticipantsService participantsService;
+    private final ParticipantService participantService;
 
     @PostMapping()
     public ResponseEntity<?> addParticipantToEvent(@AuthenticationPrincipal UserDto userDto,
@@ -25,14 +24,14 @@ public class ParticipantsController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
 
-        ParticipantDto addedParticipantDto = participantsService.addParticipantToEvent(participantDto);
+        ParticipantDto addedParticipantDto = participantService.addParticipantToEvent(participantDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedParticipantDto);
     }
 
     @DeleteMapping("/{eventId}/{login}")
     public ResponseEntity<?> deleteParticipantFromEvent(@PathVariable Long eventId,
                                                         @PathVariable String login) {
-        participantsService.deleteParticipantFromEvent(eventId, login);
+        participantService.deleteParticipantFromEvent(eventId, login);
         return ResponseEntity.noContent().build();
     }
 

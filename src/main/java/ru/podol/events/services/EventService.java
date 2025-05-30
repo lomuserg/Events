@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.podol.events.dtos.event.EventDto;
-import ru.podol.events.dtos.participant.ParticipantDto;
 import ru.podol.events.mappers.event.EventMapper;
 import ru.podol.events.model.event.Event;
 import ru.podol.events.model.User;
@@ -23,7 +22,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
     private final UserService userService;
-    private final ParticipantsService participantsService;
+    private final ParticipantService participantService;
 
     public Event findById(Long id) {
         return eventRepository.findById(id);
@@ -71,7 +70,7 @@ public class EventService {
 
     public EventDto getEventByIdAndUserId(Long userId, Long eventId) {
         Event event = eventRepository.findById(userId);
-        Participant participant = participantsService.findParticipantByUserIdAndEventId(eventId, userId);
+        Participant participant = participantService.findParticipantByUserIdAndEventId(eventId, userId);
         event.setParticipants(List.of(participant));
         return eventMapper.toEventDto(event);
     }

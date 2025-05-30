@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.podol.events.dtos.UserDto;
 import ru.podol.events.dtos.participant.ParticipantDto;
 import ru.podol.events.events.notifications.UserInvited;
 import ru.podol.events.mappers.participant.ParticipantMapper;
@@ -14,14 +13,13 @@ import ru.podol.events.model.User;
 import ru.podol.events.model.UserEventRole;
 import ru.podol.events.model.event.Event;
 import ru.podol.events.model.participant.Participant;
-import ru.podol.events.producer.AbstractProducer;
 import ru.podol.events.producer.notifications.UserInvitedProducer;
 import ru.podol.events.repository.ParticipantRepository;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ParticipantsService {
+public class ParticipantService {
     @Lazy
     @Autowired
     private EventService eventService;
