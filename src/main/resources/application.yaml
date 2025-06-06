@@ -43,8 +43,3 @@ security:
   jwt:
     token:
       secret-key: my_very_secret_key_here_1234567890
-
-logging:
-  level:
-    org.apache.kafka: DEBUG
-    org.springframework.kafka: DEBUG

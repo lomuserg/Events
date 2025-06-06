@@ -22,6 +22,11 @@ public class ParticipantRepository {
         participantJpaRepository.delete(participant);
     }
 
+    public Participant findById(Long id) {
+        return participantJpaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Participant not found"));
+    }
+
     public Participant findByEventIdAndUserLogin(Long eventId, String login) {
         return participantJpaRepository.findByEventIdAndUserLogin(eventId, login)
                 .orElseThrow(() -> new RuntimeException("Participant not found"));

@@ -21,7 +21,8 @@ public class UserInvitedListener {
     public void listen(String message) {
         try {
             UserInvited userInvited = objectMapper.readValue(message, UserInvited.class);
-            //notificationService.handleUserInvited(userInvited);
+            System.out.println(userInvited);
+            notificationService.handleUserInvited(userInvited);
         } catch (JsonProcessingException e) {
             log.error("Failed to parse UserInvited event", e);
         }

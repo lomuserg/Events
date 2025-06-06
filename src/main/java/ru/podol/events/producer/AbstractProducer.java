@@ -18,6 +18,7 @@ public abstract class AbstractProducer<T> {
         try {
             log.info("Event publication: {}", event);
             String json = objectMapper.writeValueAsString(event);
+            System.out.println("Отправил топик");
             kafkaTemplate.send(topic, json);
         } catch (JsonProcessingException e) {
             log.error("Error event sending. Event: {}", event, e);

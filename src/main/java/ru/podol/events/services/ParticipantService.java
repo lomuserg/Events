@@ -64,4 +64,8 @@ public class ParticipantService {
     public Participant findParticipantByUserIdAndEventId(Long userId, Long eventId) {
         return participantRepository.findByEventIdAndUserId(eventId, userId);
     }
+
+    public Participant findById(Long id){
+        return participantRepository.findById(id);
+    }
 }
