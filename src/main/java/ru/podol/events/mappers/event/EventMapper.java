@@ -1,7 +1,7 @@
 package ru.podol.events.mappers.event;
 
 import org.mapstruct.*;
-import ru.podol.events.dtos.event.EventDto;
+import ru.podol.events.dto.event.EventDto;
 import ru.podol.events.model.event.Event;
 import ru.podol.events.model.participant.Participant;
 

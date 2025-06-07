@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.podol.events.dtos.ErrorDto;
-import ru.podol.events.exceptions.AppException;
+import ru.podol.events.dto.ErrorDto;
+import ru.podol.events.exception.AppException;
 
 @ControllerAdvice
 public class RestExceptionHandler {

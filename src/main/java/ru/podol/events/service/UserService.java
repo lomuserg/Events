@@ -1,0 +1,55 @@
+package ru.podol.events.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import ru.podol.events.dto.auth.CredentialsDto;
+import ru.podol.events.dto.auth.SignUpDto;
+import ru.podol.events.dto.UserDto;
+import ru.podol.events.exception.AppException;
+import ru.podol.events.mappers.UserMapper;
+import ru.podol.events.model.User;
+import ru.podol.events.repository.UserRepository;
+
+import java.nio.CharBuffer;
+import java.util.Optional;
+
+@RequiredArgsConstructor
+@Service
+public class UserService {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+
+    public UserDto login(CredentialsDto credentialsDto) {
+        User user = userRepository.getByLogin(credentialsDto.getLogin());
+
+        if (passwordEncoder.matches(CharBuffer.wrap(credentialsDto.getPassword()), user.getPassword())) {
+            return userMapper.toUserDto(user);
+        }
+        throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
+    }
+
+    public UserDto register(SignUpDto userDto) {
+        Optional<User> optionalUser = userRepository.findByLogin(userDto.getLogin());
+        if (optionalUser.isPresent()) {
+            throw new AppException("Login already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userMapper.signUpToUser(userDto);
+        user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
+
+        User savedUser = userRepository.save(user);
+        return userMapper.toUserDto(savedUser);
+    }
+
+    public User findByLogin(String login) {
+        return userRepository.getByLogin(login);
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+}

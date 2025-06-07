@@ -3,7 +3,7 @@ package ru.podol.events.mappers.notification;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import ru.podol.events.events.notifications.UserInvited;
+import ru.podol.events.event.notifications.UserInvited;
 import ru.podol.events.model.notification.Notification;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)

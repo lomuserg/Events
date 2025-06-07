@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import ru.podol.events.events.notifications.UserInvited;
-import ru.podol.events.services.NotificationService;
+import ru.podol.events.event.notifications.UserInvited;
+import ru.podol.events.service.NotificationService;
 
 @Slf4j
 @Component

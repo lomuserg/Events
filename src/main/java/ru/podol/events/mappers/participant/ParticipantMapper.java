@@ -1,7 +1,7 @@
 package ru.podol.events.mappers.participant;
 
 import org.mapstruct.*;
-import ru.podol.events.dtos.participant.ParticipantDto;
+import ru.podol.events.dto.participant.ParticipantDto;
 import ru.podol.events.model.participant.Participant;
 
 import java.util.List;

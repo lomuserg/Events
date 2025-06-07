@@ -3,7 +3,7 @@ package ru.podol.events.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import ru.podol.events.exceptions.AppException;
+import ru.podol.events.exception.AppException;
 import ru.podol.events.model.User;
 import ru.podol.events.repository.jpa.UserJpaRepository;
 

@@ -7,15 +7,13 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import ru.podol.events.dtos.UserDto;
+import ru.podol.events.dto.UserDto;
 import ru.podol.events.mappers.UserMapper;
 import ru.podol.events.model.User;
-import ru.podol.events.repository.UserRepository;
-import ru.podol.events.services.UserService;
+import ru.podol.events.service.UserService;
 
 import java.util.Base64;
 import java.util.Collections;

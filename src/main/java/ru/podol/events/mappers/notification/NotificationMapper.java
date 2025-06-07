@@ -3,7 +3,7 @@ package ru.podol.events.mappers.notification;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import ru.podol.events.dtos.notification.NotificationDto;
+import ru.podol.events.dto.notification.NotificationDto;
 import ru.podol.events.model.notification.Notification;
 
 import java.util.List;
