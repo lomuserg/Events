@@ -10,7 +10,7 @@ import ru.podol.events.model.notification.Notification;
 public interface UserInvitedMapper {
     @Mapping(target = "user", source = "userInvited")
     @Mapping(target = "title", expression = "java(userInvited.eventTitle())")
-    @Mapping(target = "message", expression = "java(userInvited.eventTitle())")
+    @Mapping(target = "message", expression = "java(userInvited.eventMessage())")
     @Mapping(target = "read", constant = "false")
     Notification toNotification(UserInvited userInvited);
 }

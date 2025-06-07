@@ -3,7 +3,9 @@ package ru.podol.events.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import ru.podol.events.dtos.notification.NotificationDto;
 import ru.podol.events.events.notifications.UserInvited;
+import ru.podol.events.mappers.notification.NotificationMapper;
 import ru.podol.events.mappers.notification.UserInvitedMapper;
 import ru.podol.events.model.notification.Notification;
 import ru.podol.events.repository.NotificationRepository;
@@ -15,6 +17,8 @@ import java.util.List;
 public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final UserInvitedMapper userInvitedMapper;
+    private final NotificationMapper notificationMapper;
+
     @Lazy
     private final UserService userService;
 
@@ -24,8 +28,9 @@ public class NotificationService {
         notificationRepository.save(notification);
     }
 
-    public List<Notification> getNotificationsByUserId(Long userId){
-       return notificationRepository.findByUserId(userId);
+    public List<NotificationDto> getNotificationsByUserId(Long userId){
+        List<Notification> notifications = notificationRepository.findByUserId(userId);
+       return notificationMapper.toDtos(notifications);
     }
 
 

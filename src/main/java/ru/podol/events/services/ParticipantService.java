@@ -43,8 +43,8 @@ public class ParticipantService {
         log.info("sending notify: adding participant to event {}", event);
         UserInvited userInvited = new UserInvited(
                 user.getId(),
-                participantDto.getEventId(),
-                "Вы добавлены на мероприятие:" + event.getTitle()
+                "Вас добавили на мероприятие",
+                event.getTitle()
         );
         userInvitedProducer.sendMessage(userInvited);
 
@@ -65,7 +65,7 @@ public class ParticipantService {
         return participantRepository.findByEventIdAndUserId(eventId, userId);
     }
 
-    public Participant findById(Long id){
+    public Participant findById(Long id) {
         return participantRepository.findById(id);
     }
 }
