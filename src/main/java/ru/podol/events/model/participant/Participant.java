@@ -44,6 +44,9 @@ public class Participant {
     @Column(name = "role", nullable = false)
     private UserEventRole role;
 
+    @Column(name = "reminder_sent", nullable = false)
+    private boolean reminderSent = false;
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
