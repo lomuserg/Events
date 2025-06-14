@@ -7,11 +7,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.podol.events.dto.participant.ParticipantDto;
-import ru.podol.events.event.notifications.UserInvited;
+import ru.podol.events.kafkaEvent.notifications.UserInvited;
 import ru.podol.events.mappers.participant.ParticipantMapper;
 import ru.podol.events.model.User;
 import ru.podol.events.model.UserEventRole;
 import ru.podol.events.model.event.Event;
+import ru.podol.events.model.notification.NotificationType;
 import ru.podol.events.model.participant.Participant;
 import ru.podol.events.producer.notifications.UserInvitedProducer;
 import ru.podol.events.repository.ParticipantRepository;
@@ -44,6 +45,7 @@ public class ParticipantService {
         UserInvited userInvited = new UserInvited(
                 user.getId(),
                 "Вас добавили на мероприятие",
+                NotificationType.EVENT_INVITE,
                 event.getTitle()
         );
         userInvitedProducer.sendMessage(userInvited);

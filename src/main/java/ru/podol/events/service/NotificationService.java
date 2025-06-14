@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import ru.podol.events.dto.notification.NotificationDto;
-import ru.podol.events.event.notifications.UserInvited;
+import ru.podol.events.kafkaEvent.notifications.UserInvited;
 import ru.podol.events.mappers.notification.NotificationMapper;
 import ru.podol.events.mappers.notification.UserInvitedMapper;
 import ru.podol.events.model.notification.Notification;

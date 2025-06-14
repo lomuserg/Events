@@ -26,7 +26,11 @@ public class Notification {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String message;
+
+    @Column(nullable = false)
+    private NotificationType type;
 
     private boolean read = false;
 

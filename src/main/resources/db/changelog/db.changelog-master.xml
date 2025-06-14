@@ -7,5 +7,6 @@
 
     <include file="changeset/event_V001__initial.sql" relativeToChangelogFile="true"/>
     <include file="changeset/event_V002__notificationsTable.sql" relativeToChangelogFile="true"/>
+    <include file="changeset/event_V003__addTypeToNotificationsTable.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

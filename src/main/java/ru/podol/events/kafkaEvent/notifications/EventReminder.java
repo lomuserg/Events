@@ -1,4 +1,4 @@
-package ru.podol.events.event.notifications;
+package ru.podol.events.kafkaEvent.notifications;
 
 import java.time.LocalDateTime;
 import java.util.List;
