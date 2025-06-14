@@ -14,6 +14,7 @@ public interface NotificationMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "title", target = "title")
     @Mapping(source = "read", target = "read")
+    @Mapping(target = "type", source = "type")
     @Mapping(source = "createdAt", target = "createdAt")
     NotificationDto toDto(Notification notification);
 

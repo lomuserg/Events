@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import ru.podol.events.kafkaEvent.notifications.UserInvited;
+import ru.podol.events.kafkaEvent.notifications.EventNotification;
 import ru.podol.events.service.NotificationService;
 
 @Slf4j
@@ -17,10 +17,10 @@ public class UserInvitedListener {
     private final NotificationService notificationService;
     private final ObjectMapper objectMapper;
 
-    @KafkaListener(topics = "${spring.kafka.topic.user-invited.name}", groupId = "notification-group")
+    @KafkaListener(topics = "${spring.kafka.topic.notification.name}", groupId = "notification-group")
     public void listen(String message) {
         try {
-            UserInvited userInvited = objectMapper.readValue(message, UserInvited.class);
+            EventNotification userInvited = objectMapper.readValue(message, EventNotification.class);
             System.out.println(userInvited);
             notificationService.handleUserInvited(userInvited);
         } catch (JsonProcessingException e) {

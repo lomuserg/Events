@@ -32,12 +32,12 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     topic:
-      user-invited:
-        name: UserInvited
-      event-reminder:
-        name: EventReminder
-      event-deleted:
-        name: EventDeleted
+      notification:
+        name: notification
+
+  notification:
+    remainder:
+      cron: 0 * * * * ?
 
 security:
   jwt:

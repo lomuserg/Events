@@ -12,7 +12,6 @@ public class EventReminderScheduler {
 
     @Scheduled(cron = "${spring.url.hash.cleaner.cron}")
     public void remindToEvent() {
-
-        //notificationService.eventRemind();
+        notificationService.eventRemind();
     }
 }

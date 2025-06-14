@@ -16,15 +16,8 @@ public class KafkaTopicConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
-    @Value("${spring.kafka.topic.user-invited.name}")
-    private String userInvitedTopic;
-
-    @Value("${spring.kafka.topic.event-reminder.name}")
-    private String eventReminderTopic;
-
-    @Value("${spring.kafka.topic.event-deleted.name}")
-    private String eventDeletedTopic;
-
+    @Value("${spring.kafka.topic.notification.name}")
+    private String notification;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -35,16 +28,7 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic UserInvitedNotificationTopic() {
-        return new NewTopic(userInvitedTopic, 1, (short) 1);
+        return new NewTopic(notification, 1, (short) 1);
     }
 
-    @Bean
-    public NewTopic EventReminderNotificationTopic() {
-        return new NewTopic(eventReminderTopic, 1, (short) 1);
-    }
-
-    @Bean
-    public NewTopic EventDeletedNotificationTopic() {
-        return new NewTopic(eventDeletedTopic, 1, (short) 1);
-    }
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.podol.events.model.notification.NotificationType;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +18,7 @@ public class NotificationDto {
     private String title;
     private String message;
     private boolean read;
+    private NotificationType type;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
