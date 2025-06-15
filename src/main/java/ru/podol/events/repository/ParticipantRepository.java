@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 import ru.podol.events.model.participant.Participant;
 import ru.podol.events.repository.jpa.ParticipantJpaRepository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ParticipantRepository {
@@ -35,6 +38,10 @@ public class ParticipantRepository {
     public Participant findByEventIdAndUserId(Long eventId, Long userId) {
         return participantJpaRepository.findByEventIdAndUserId(eventId, userId)
                 .orElseThrow(() -> new RuntimeException("Participant not found"));
+    }
+
+    public List<Participant> findParticipantsForReminder(LocalDateTime start, LocalDateTime end) {
+        return participantJpaRepository.findParticipantsForReminder(start, end);
     }
 
 }

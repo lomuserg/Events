@@ -2,7 +2,6 @@ package ru.podol.events.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,14 +16,16 @@ import ru.podol.events.model.participant.Participant;
 import ru.podol.events.producer.notifications.KafkaEventNotificationsProducer;
 import ru.podol.events.repository.ParticipantRepository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ParticipantService {
     @Lazy
-    @Autowired
     private EventService eventService;
-
+    private static final int REMIND_24_HOURS = 24;
     private final UserService userService;
     private final ParticipantMapper participantMapper;
     private final ParticipantRepository participantRepository;
@@ -69,5 +70,9 @@ public class ParticipantService {
 
     public Participant findById(Long id) {
         return participantRepository.findById(id);
+    }
+
+    public List<Participant> findParticipantsForReminder(LocalDateTime start, LocalDateTime end) {
+        return participantRepository.findParticipantsForReminder(LocalDateTime.now(), LocalDateTime.now().plusHours(REMIND_24_HOURS));
     }
 }

@@ -10,8 +10,8 @@ import ru.podol.events.service.NotificationService;
 public class EventReminderScheduler {
     public final NotificationService notificationService;
 
-    @Scheduled(cron = "${spring.url.hash.cleaner.cron}")
+    @Scheduled(cron = "${spring.notification.remainder.cron}")
     public void remindToEvent() {
-        notificationService.eventRemind();
+   //     notificationService.eventRemind();
     }
 }

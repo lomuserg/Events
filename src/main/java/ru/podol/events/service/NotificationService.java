@@ -8,8 +8,8 @@ import ru.podol.events.dto.notification.NotificationDto;
 import ru.podol.events.kafkaEvent.notifications.EventNotification;
 import ru.podol.events.mappers.notification.KafkaEventNotificationMapper;
 import ru.podol.events.mappers.notification.NotificationMapper;
+import ru.podol.events.model.User;
 import ru.podol.events.model.notification.Notification;
-import ru.podol.events.model.notification.NotificationType;
 import ru.podol.events.repository.NotificationRepository;
 
 import java.util.List;
@@ -21,8 +21,6 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final NotificationMapper notificationMapper;
     private final KafkaEventNotificationMapper kafkaEventNotificationMapper;
-
-    @Lazy
     private final UserService userService;
 
     public void handleUserInvited(EventNotification userInvited){
@@ -38,6 +36,11 @@ public class NotificationService {
 
 //    public void eventRemind(){
 //        log.info("sending notify: remind ");
+//        List<User> users = userService.findUsersWithEventsTomorrowNative();
+//        users.forEach(user -> {
+//            log.info("Processing user: {}", user.getLogin());
+//            // Здесь логика создания и отправки уведомлений
+//        });
 //        EventNotification userInvited = new EventNotification(
 //                1,
 //                "Вас добавили на мероприятие",
@@ -45,7 +48,6 @@ public class NotificationService {
 //                event.getTitle()
 //        );
 //        kafkaEventNotificationsProducer.sendMessage(userInvited);
-//
 //    }
 
 }
