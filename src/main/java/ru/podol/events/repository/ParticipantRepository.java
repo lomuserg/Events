@@ -17,6 +17,10 @@ public class ParticipantRepository {
         return participantJpaRepository.save(participant);
     }
 
+    public List<Participant> saveAll(List<Participant> participants) {
+        return participantJpaRepository.saveAll(participants);
+    }
+
     public Participant update(Participant participant) {
         return participantJpaRepository.save(participant);
     }

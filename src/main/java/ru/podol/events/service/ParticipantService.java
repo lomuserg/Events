@@ -25,6 +25,9 @@ import java.util.List;
 public class ParticipantService {
     @Lazy
     private EventService eventService;
+    @Lazy
+    private NotificationService notificationService;
+
     private static final int REMIND_24_HOURS = 24;
     private final UserService userService;
     private final ParticipantMapper participantMapper;
@@ -72,7 +75,27 @@ public class ParticipantService {
         return participantRepository.findById(id);
     }
 
-    public List<Participant> findParticipantsForReminder(LocalDateTime start, LocalDateTime end) {
-        return participantRepository.findParticipantsForReminder(LocalDateTime.now(), LocalDateTime.now().plusHours(REMIND_24_HOURS));
+    public void send24HourReminders() {
+        List<Participant> participants = findParticipantsForReminder24Hours();
+
+        participants.forEach(participant -> {
+            notificationService.sendReminder(
+                    participant.getUser().getId(),
+                    "Напоминание о мероприятии",
+                    NotificationType.REMIND,
+                    String.format("Через %d часов: %s", REMIND_24_HOURS, participant.getEvent().getTitle())
+            );
+            participant.setReminderSent(true);
+        });
+
+        participantRepository.saveAll(participants);
+    }
+
+    private List<Participant> findParticipantsForReminder24Hours() {
+        LocalDateTime now = LocalDateTime.now();
+        return participantRepository.findParticipantsForReminder(
+                now,
+                now.plusHours(REMIND_24_HOURS)
+        );
     }
 }
