@@ -21,7 +21,7 @@ public class UserInvitedListener {
     public void listen(String message) {
         try {
             EventNotification userInvited = objectMapper.readValue(message, EventNotification.class);
-            System.out.println(userInvited);
+            log.info("Received Kafka message: {}", userInvited);
             notificationService.handleUserInvited(userInvited);
         } catch (JsonProcessingException e) {
             log.error("Failed to parse UserInvited event", e);
