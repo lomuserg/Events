@@ -45,5 +45,24 @@ services:
     depends_on:
       - kafka
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"  # UI для RabbitMQ
+
+  telegram_bot:
+    build: ./telegram-bot
+    environment:
+      TELEGRAM_TOKEN: "твой_токен_бота"
+      RABBITMQ_HOST: rabbitmq
+      POSTGRES_HOST: master_postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: events
+    depends_on:
+      - master_postgres
+      - rabbitmq
+
 volumes:
   kafka_data:
