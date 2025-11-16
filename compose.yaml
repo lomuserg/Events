@@ -15,23 +15,20 @@ services:
       - "2181:2181"
 
   kafka:
-    image: bitnami/kafka:latest
+    image: confluentinc/cp-kafka:7.5.0
     restart: unless-stopped
     ports:
       - "9092:9092"
-    volumes:
-      - kafka_data:/var/lib/kafka/data
     environment:
-      KAFKA_CFG_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_EXTERNAL://0.0.0.0:9092,CONTROLLER://kafka:9093
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_EXTERNAL://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL: PLAINTEXT
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_BROKER_ID: 1
     depends_on:
       - zookeeper
+
 
   kafka-ui:
     image: provectuslabs/kafka-ui:v0.7.2
@@ -45,24 +42,24 @@ services:
     depends_on:
       - kafka
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"  # UI для RabbitMQ
-
-  telegram_bot:
-    build: ./telegram-bot
-    environment:
-      TELEGRAM_TOKEN: "твой_токен_бота"
-      RABBITMQ_HOST: rabbitmq
-      POSTGRES_HOST: master_postgres
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: events
-    depends_on:
-      - master_postgres
-      - rabbitmq
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"  # UI для RabbitMQ
+#
+#  telegram_bot:
+#    build: ./telegram-bot
+#    environment:
+#      TELEGRAM_TOKEN: "твой_токен_бота"
+#      RABBITMQ_HOST: rabbitmq
+#      POSTGRES_HOST: master_postgres
+#      POSTGRES_USER: user
+#      POSTGRES_PASSWORD: secret
+#      POSTGRES_DB: events
+#    depends_on:
+#      - master_postgres
+#      - rabbitmq
 
 volumes:
   kafka_data:
