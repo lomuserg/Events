@@ -12,6 +12,7 @@ import ru.podol.events.mappers.participant.ParticipantMapper;
 import ru.podol.events.model.User;
 import ru.podol.events.model.UserEventRole;
 import ru.podol.events.model.event.Event;
+import ru.podol.events.model.notification.Notification;
 import ru.podol.events.model.notification.NotificationType;
 import ru.podol.events.model.participant.Participant;
 import ru.podol.events.producer.notifications.KafkaEventNotificationsProducer;
@@ -60,6 +61,26 @@ public class ParticipantService {
         kafkaEventNotificationsProducer.sendMessage(userInvited);
 
         log.info("Participant {} added to event", participantMapper.toParticipantDto(participant));
+        return participantMapper.toParticipantDto(participantRepository.save(participant));
+    }
+
+    public ParticipantDto addParticipantToEventWithoutKafka(ParticipantDto dto) {
+        User user = userService.findByLogin(dto.getLogin());
+        Event event = eventService.findById(dto.getEventId());
+
+        Participant participant = participantMapper.toParticipant(dto);
+        participant.setUser(user);
+        participant.setEvent(event);
+        participant.setRole(UserEventRole.PARTICIPANT);
+
+        EventNotification notification = new EventNotification(
+                user.getId(),
+                "Вас добавили на мероприятие",
+                NotificationType.INVITE,
+                event.getTitle()
+        );
+        notificationService.handleUserInvited(notification);
+
         return participantMapper.toParticipantDto(participantRepository.save(participant));
     }
 
